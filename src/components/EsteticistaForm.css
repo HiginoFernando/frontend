@@ -1,0 +1,374 @@
+/* ==========================
+   1. RESET E VARIÁVEIS
+   ========================== */
+
+/* Import de fonte “Inter” */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+/* Variáveis de tema */
+:root {
+  --gradient-start: #4facfe;
+  --gradient-end: #00f2fe;
+  --card-bg: rgba(255, 255, 255, 0.15);
+  --card-border: rgba(255, 255, 255, 0.3);
+  --accent-color: #ff9a9e;
+  --accent-hover: #ff7f7f;
+  --text-light: #eef6ff;
+  --text-dark: #1a1a1a;
+  --input-bg: rgba(255, 255, 255, 0.8);
+  --shadow-deep: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --radius-lg: 12px;
+  --transition-speed: 0.3s;
+}
+
+/* ==========================
+   2. MENU HAMBÚRGUER (HEADER)
+   ========================== */
+
+/* Contêiner de fundo degradê */
+.doctor-page-background {
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+  display: flex;
+  flex-direction: column; /* header + card empilham verticalmente */
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Cabeçalho fixo no topo */
+.doctor-header-container {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparente por cima do degradê */
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+/* Logo / Título do site */
+.logo-title .site-title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Botão hambúrguer */
+.hamburger {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+/* Cada barra do hambúrguer */
+.hamburger .bar {
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  transition: transform var(--transition-speed), opacity var(--transition-speed);
+}
+
+/* Quando o menu estiver aberto, transformamos as barras */
+.hamburger.open .top-bar {
+  transform: translateY(12px) rotate(45deg);
+}
+.hamburger.open .mid-bar {
+  opacity: 0;
+}
+.hamburger.open .bot-bar {
+  transform: translateY(-12px) rotate(-45deg);
+}
+
+/* Menu de navegação (inicialmente oculto) */
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  right: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-deep);
+  overflow: hidden;
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Exibe o menu quando .show está presente */
+.nav-menu.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Lista de itens do menu */
+.nav-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+.nav-menu li {
+  margin: 0;
+}
+.nav-menu a {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-menu a:hover {
+  background: rgba(255, 209, 102, 0.2); /* leve highlight */
+}
+
+/* ==========================
+   3. CARD DE CADASTRO
+   ========================== */
+
+/* Card principal (glassmorphism) */
+.doctor-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-deep);
+  padding: 2rem 1.5rem;
+  margin-top: 2rem; /* espaço abaixo do header */
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  color: var(--text-dark);
+}
+
+/* Animação de entrada para o card */
+@keyframes fadeInUpCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-card {
+  opacity: 0;
+  animation: fadeInUpCard 0.6s ease-out forwards;
+}
+
+/* ==========================
+   4. CABEÇALHO DO FORM
+   ========================== */
+
+.doctor-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+}
+
+/* Animação do cabeçalho */
+@keyframes fadeInHeader {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-header {
+  animation: fadeInHeader 0.6s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+/* Ícone do médico */
+.doctor-icon {
+  width: 56px;
+  height: 56px;
+  color: var(--accent-color);
+  margin: 0 auto 0.5rem;
+}
+
+/* Título do form */
+.doctor-title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+/* ==========================
+   5. FORMULÁRIO
+   ========================== */
+
+.doctor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* Animação para cada input-group */
+@keyframes fadeInInput {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-input {
+  opacity: 0;
+  animation: fadeInInput 0.5s ease-out forwards;
+}
+
+/* Grupo de label + campo */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-group label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+/* Estilo de campos input */
+.input-group input {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--input-bg);
+  transition: box-shadow var(--transition-speed),
+    transform var(--transition-speed);
+  outline: none;
+  color: var(--text-dark);
+}
+
+/* Placeholder cor escura */
+.input-group input::placeholder {
+  color: var(--text-dark);
+}
+
+/* Foco nos inputs */
+.input-group input:focus {
+  box-shadow: 0 0 0 4px rgba(255, 154, 158, 0.4);
+  transform: scale(1.01);
+}
+
+/* ==========================
+   6. BOTÃO DE ENVIO
+   ========================== */
+
+.btn-submit {
+  margin-top: 1rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: var(--accent-color);
+  color: var(--text-dark);
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--transition-speed),
+    transform var(--transition-speed), box-shadow var(--transition-speed);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+}
+
+/* Animação de entrada para o botão */
+@keyframes fadeInButton {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-button {
+  animation: fadeInButton 0.5s ease-out forwards;
+}
+
+/* Hover e active no botão */
+.btn-submit:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+.btn-submit:active {
+  background: var(--accent-color);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+  transform: translateY(0);
+}
+
+/* ==========================
+   7. RESPONSIVIDADE
+   ========================== */
+
+@media (max-width: 520px) {
+  .doctor-card {
+    padding: 1.5rem;
+  }
+  .doctor-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .doctor-title {
+    font-size: 1.5rem;
+  }
+  .btn-submit {
+    font-size: 1rem;
+  }
+}
+
+/* ==========================
+   8. RESPONSIVIDADE DO MENU
+   ========================== */
+
+@media (max-width: 480px) {
+  .nav-menu {
+    right: 0.5rem;
+    left: 0.5rem; /* ocupa quase toda a largura no mobile */
+  }
+
+  .nav-menu a {
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+}

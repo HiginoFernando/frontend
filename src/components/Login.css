@@ -1,0 +1,244 @@
+/* ==========================
+   1. RESET E VARIÁVEIS
+   ========================== */
+
+/* Importa a fonte “Inter” */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+/* Variáveis de tema (ajustadas para trocar o rosa por azul bebê) */
+:root {
+  --gradient-start: #ffecd2;    /* degradê suave: bege claro → azul bebê */
+  --gradient-end: #add8e6;      /* substituído rosa por azul bebê (#ADD8E6) */
+  --card-bg: rgba(255, 255, 255, 0.15);
+  --card-border: rgba(255, 255, 255, 0.3);
+  --accent-color: #6a11cb;      /* roxo escuro para destaques (mantido) */
+  --accent-hover: #2575fc;      /* azul acentuado no hover (mantido) */
+  --text-light: #ffffff;
+  --text-dark: #1f1f1f;
+  --input-bg: rgba(255, 255, 255, 0.8);
+  --shadow-deep: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --radius-lg: 12px;
+  --transition-speed: 0.3s;
+}
+
+/* ==========================
+   2. BACKGROUND DA PÁGINA
+   ========================== */
+
+.login-page-background {
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+}
+
+/* ==========================
+   3. CARD DE LOGIN (GLASSMORPHISM)
+   ========================== */
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-deep);
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  color: var(--text-dark);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeInUpCard 0.6s ease-out forwards;
+}
+
+/* Animação de entrada */
+
+@keyframes fadeInUpCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ==========================
+   4. CABEÇALHO DO LOGIN
+   ========================== */
+
+.login-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeInHeader 0.6s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+@keyframes fadeInHeader {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* ==========================
+   5. FORMULÁRIO DE LOGIN
+   ========================== */
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  opacity: 0;
+  animation: fadeInForm 0.6s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes fadeInForm {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+}
+
+.input-group input {
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--input-bg);
+  transition: box-shadow var(--transition-speed),
+    transform var(--transition-speed);
+  outline: none;
+  color: var(--text-dark);
+}
+
+.input-group input::placeholder {
+  color: var(--text-dark);
+}
+
+.input-group input:focus {
+  box-shadow: 0 0 0 4px rgba(106, 17, 203, 0.4);
+  transform: scale(1.01);
+}
+
+/* ==========================
+   6. EXIBIÇÃO DE ERRO
+   ========================== */
+
+.login-error {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin-top: -0.5rem;
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeInError 0.4s ease-out forwards;
+}
+
+@keyframes fadeInError {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================
+   7. BOTÃO DE SUBMIT
+   ========================== */
+
+.btn-login {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: var(--accent-color);
+  color: var(--text-light);
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--transition-speed),
+    transform var(--transition-speed), box-shadow var(--transition-speed);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeInButton 0.6s ease-out forwards;
+  animation-delay: 0.3s;
+}
+
+@keyframes fadeInButton {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.btn-login:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.btn-login:active {
+  background: var(--accent-color);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+  transform: translateY(0);
+}
+
+/* ==========================
+   8. RESPONSIVIDADE
+   ========================== */
+
+@media (max-width: 400px) {
+  .login-card {
+    padding: 1.5rem 1rem;
+  }
+  .login-header h2 {
+    font-size: 1.5rem;
+  }
+  .btn-login {
+    font-size: 1rem;
+  }
+}

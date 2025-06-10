@@ -1,0 +1,443 @@
+/* ==========================
+   1. RESET E VARIÁVEIS
+   ========================== */
+
+/* Importa fonte “Inter” */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap");
+
+:root {
+  --gradient-start: #667eea;
+  --gradient-end: #764ba2;
+  --card-bg: rgba(255, 255, 255, 0.15);
+  --card-border: rgba(255, 255, 255, 0.3);
+  --accent-color: #ffd166;
+  --accent-hover: #ffbf4d;
+  --text-light: #f0f0f0;
+  --text-dark: #1f1f1f;
+  --input-bg: rgba(255, 255, 255, 0.8);
+  --shadow-deep: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --radius-lg: 16px;
+  --transition-speed: 0.3s;
+}
+
+/* ==========================
+   2. HEADER COM MENU
+   ========================== */
+
+/* Contêiner de fundo degradê */
+.report-page-background {
+  width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  display: flex;
+  flex-direction: column; /* agora o header + card empilham verticalmente */
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Cabeçalho fixo no topo */
+.report-header-container {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5); /* semi-transparente por cima do degradê */
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  box-sizing: border-box;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+/* Logo / Título do site */
+.logo-title .site-title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Botão hambúrguer */
+.hamburger {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+/* Cada barra do hambúrguer */
+.hamburger .bar {
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  transition: transform var(--transition-speed), opacity var(--transition-speed);
+}
+
+/* Quando o menu estiver aberto, transformamos as barras */
+.hamburger.open .top-bar {
+  transform: translateY(12px) rotate(45deg);
+}
+.hamburger.open .mid-bar {
+  opacity: 0;
+}
+.hamburger.open .bot-bar {
+  transform: translateY(-12px) rotate(-45deg);
+}
+
+/* Menu de navegação (inicialmente oculto) */
+.nav-menu {
+  position: absolute;
+  top: 100%;
+  right: 1.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-deep);
+  overflow: hidden;
+  transform: translateY(-20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Exibe o menu quando .show está presente */
+.nav-menu.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Lista de itens do menu */
+.nav-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+}
+.nav-menu li {
+  margin: 0;
+}
+.nav-menu a {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-menu a:hover {
+  background: rgba(255, 209, 102, 0.2); /* leve highlight */
+}
+
+/* ==========================
+   3. CARD DE RELATÓRIO
+   ========================== */
+
+/* Card principal (glassmorphism) */
+.report-card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-deep);
+  padding: 2rem 1.5rem;
+  margin-top: 2rem; /* espaço abaixo do header */
+  margin-bottom: 2rem;
+  box-sizing: border-box;
+  color: var(--text-dark);
+}
+
+/* Animação de entrada do card */
+@keyframes fadeInUpCard {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+.animate-card {
+  opacity: 0;
+  animation: fadeInUpCard 0.6s ease-out forwards;
+}
+
+/* ==========================
+   4. CABEÇALHO INTERNO
+   ========================== */
+
+.report-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+}
+
+/* Animação do cabeçalho interno */
+@keyframes fadeInHeaderInner {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-inner-header {
+  animation: fadeInHeaderInner 0.6s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+/* Ícone do relatório */
+.report-icon {
+  width: 56px;
+  height: 56px;
+  color: var(--accent-color);
+  margin: 0 auto 0.5rem;
+}
+
+/* Título do relatório */
+.report-title {
+  font-family: "Inter", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+/* ==========================
+   5. FILTROS
+   ========================== */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+}
+
+/* Faz a animação de fade-in dos filtros */
+@keyframes fadeInFilters {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-input.filters {
+  animation: fadeInFilters 0.5s ease-out forwards;
+  animation-delay: 0.2s;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 160px;
+  gap: 0.4rem;
+}
+
+.input-group label {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
+.input-group select,
+.input-group input {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-lg);
+  border: none;
+  background: var(--input-bg);
+  transition: box-shadow var(--transition-speed),
+    transform var(--transition-speed);
+  outline: none;
+  color: var(--text-dark);
+}
+
+.input-group input::placeholder {
+  color: var(--text-dark);
+}
+
+.input-group select:focus,
+.input-group input:focus {
+  box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.4);
+  transform: scale(1.01);
+}
+
+/* Botão Buscar */
+.btn-submit {
+  align-self: flex-end;
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background: var(--accent-color);
+  color: var(--text-dark);
+  padding: 0.85rem 1rem;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: background var(--transition-speed),
+    transform var(--transition-speed), box-shadow var(--transition-speed);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+}
+
+/* Animação do botão */
+@keyframes fadeInButton {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-button {
+  animation: fadeInButton 0.5s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+.btn-submit:hover {
+  background: var(--accent-hover);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+.btn-submit:active {
+  background: var(--accent-color);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.18);
+  transform: translateY(0);
+}
+
+/* ==========================
+   6. RESULTADOS
+   ========================== */
+
+.results {
+  opacity: 0;
+}
+
+.animate-input.results {
+  animation: fadeInFilters 0.5s ease-out forwards;
+  animation-delay: 0.6s;
+}
+
+.result-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-item {
+  background: var(--input-bg);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: box-shadow var(--transition-speed), transform var(--transition-speed);
+}
+
+.result-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.result-date {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  margin: 0 0 0.5rem;
+}
+
+.result-info {
+  font-family: "Inter", sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  margin: 0.2rem 0;
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+.info-value {
+  color: var(--text-dark);
+}
+
+.no-results {
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: var(--text-light);
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* ==========================
+   7. RESPONSIVIDADE
+   ========================== */
+
+@media (max-width: 600px) {
+  .report-card {
+    padding: 1.5rem 1rem;
+  }
+  .report-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .report-title {
+    font-size: 1.5rem;
+  }
+  .btn-submit {
+    font-size: 1rem;
+  }
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .input-group {
+    min-width: 100%;
+  }
+}
+
+/* ==========================
+   8. RESPONSIVIDADE DO MENU
+   ========================== */
+
+@media (max-width: 480px) {
+  .nav-menu {
+    right: 0.5rem;
+    left: 0.5rem; /* ocupa quase toda a largura no mobile */
+  }
+
+  .nav-menu a {
+    padding: 0.75rem 1rem;
+    text-align: center;
+  }
+}
