@@ -2,12 +2,13 @@
 
 import axios from "axios";
 
-// Cria a instância do Axios sem header fixo para Authorization
+const API_BASE = import.meta.env.VITE_API_BASE_URL; 
+// vai valer algo como "https://meu-backend-app-f0gjgrhkhsebe5g9.brazilsouth-01.azurewebsites.net/api"
+
 const api = axios.create({
-  baseURL: "meu-backend-app-f0gjgrhkhsebe5g9.brazilsouth-01.azurewebsites.net/api",
+  baseURL: API_BASE,
 });
 
-// Interceptor que adiciona o token a cada requisição, lendo do localStorage no momento:
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
