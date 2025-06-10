@@ -8,7 +8,7 @@ const MyAppointments = () => {
   useEffect(() => {
     const fetchConsultas = async () => {
       try {
-        const resp = await axios.get('http://localhost:8080/api/consultas/meus');
+        const resp = await axios.get('meu-backend-app-f0gjgrhkhsebe5g9.brazilsouth-01.azurewebsites.net/api/consultas/meus');
         setConsultas(resp.data);
         setErro(null);
       } catch (err) {

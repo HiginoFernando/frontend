@@ -7,7 +7,7 @@ export default defineConfig({
     proxy: {
       // tudo que cair em /api será redirecionado para localhost:8080
       "/api": {
-        target: "http://localhost:8080",
+        target: "meu-backend-app-f0gjgrhkhsebe5g9.brazilsouth-01.azurewebsites.net",
         changeOrigin: true,
         secure: false,
       },

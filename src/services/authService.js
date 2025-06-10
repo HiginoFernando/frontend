@@ -3,7 +3,7 @@
 import axios from "axios";
 
 // baseURL do seu back
-axios.defaults.baseURL = "http://localhost:8080";
+axios.defaults.baseURL = "meu-backend-app-f0gjgrhkhsebe5g9.brazilsouth-01.azurewebsites.net";
 
 const API_URL = "/api/auth";
 

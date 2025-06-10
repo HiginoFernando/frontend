@@ -11,7 +11,7 @@ export default function Dashboard() {
   useEffect(() => {
     // Exemplo: consulta a rota protegida /api/test/user no backend
     axios
-      .get('http://localhost:8080/api/test/user')
+      .get('meu-backend-app-f0gjgrhkhsebe5g9.brazilsouth-01.azurewebsites.net/api/test/user')
       .then(res => {
         if (res.data) {
           setMensagem(res.data);
